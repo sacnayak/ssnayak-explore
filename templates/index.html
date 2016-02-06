@@ -1,13 +1,37 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Byte 2 Tutorial</title>
+<head>
+	<title>Byte 2</title>
 
-		<!-- Semantic Framework -->
-		<link rel="stylesheet" rel="text/styleshet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
-	</head>
-	<body>
-	<h1>Byte 2 Yo!</h1>
+	<!-- Semantic Framework -->
+	<link rel="stylesheet" rel="text/styleshet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
+</head>
+<body>
+	<div class="ui menu inverted">
+		<div class="ui container">
+			<h4 class="header item"><a href="#">The Data Pipeline</a></h4>	
+		</div>
+	</div>
+	<div class="ui container">
+		<table class="ui striped table">
+			<thead>
+				<tr>
+					{% for item in headers %}
+						<th>{{ item }}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+				{% for row in content %}
+				<tr>
+					{% for datum in row %}
+					<td>{{ datum }} </td>
+					{% endfor %}
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 	<script type="text/javascript" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
-	</body>
+</body>
 </html>
