@@ -4,20 +4,25 @@
 	<title>Byte 2</title>
 
 	<!-- Semantic Framework -->
-	<link rel="stylesheet" rel="text/styleshet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
+	<link rel="stylesheet" rel="text/stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
 </head>
 <body>
 	<div class="ui menu inverted">
 		<div class="ui container">
-			<h4 class="header item"><a href="#">The Data Pipeline</a></h4>	
+			<h4 class="header item"><a href="#">Home</a></h4>
+			<h4 class="header item"><a href="about">About</a></h4>
+			<h4 class="header item"><a href="quality">Quality</a></h4>	
 		</div>
 	</div>
 	<div class="ui container">
+		{% for column in allheaders %}
+		<button id="{{ column }}" class="ui basic button" onclick="updateTable('{{column}}')">{{ column }}</button>
+		{% endfor %}
 		<table class="ui striped table">
 			<thead>
 				<tr>
 					{% for item in headers %}
-						<th>{{ item }}</th>
+					<th>{{ item }}</th>
 					{% endfor %}
 				</tr>
 			</thead>
@@ -32,6 +37,44 @@
 			</tbody>
 		</table>
 	</div>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	<script type="text/javascript" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
+	<script type="text/javascript">
+		function updateTable(param) {
+			console.log('Button Click being received');
+			console.log(param);
+			button = document.getElementById(param);
+			if (button.className.includes("active")) {
+				console.log('Deactivate button state');
+				button.className = "ui basic button";
+			} else {
+				console.log('Activate button state');
+				button.className = "ui basic button active";
+			}
+			cols = [];
+			buttons = document.getElementsByTagName('button');
+			for (button in buttons) {
+				console.log(buttons[button]);
+				id = buttons[button].id;
+				if(id != null) {
+					if(buttons[button].className.includes("active")) {
+						cols.push(id);
+					}
+				}
+			}
+
+			$.ajax({
+				url: '/_update_table',
+				dataType: 'json',
+				contentType: 'application/json',
+				data: JSON.stringify({'cols' : cols}),
+				type: 'POST',
+				success: function (res, status) {
+					console.log("successrunning");
+			 // On Success
+				},
+			});
+			}
+</script>
 </body>
 </html>
