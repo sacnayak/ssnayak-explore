@@ -33,7 +33,6 @@ app = Flask(__name__)
 
 
 def get_all_data(query):
-    query = "SELECT * FROM " + TABLE_ID
     response = service.query().sql(sql=query).execute()
     logging.info(response['columns'])
     logging.info(response['rows'])
@@ -49,6 +48,9 @@ def make_query(cols):
     
 	string_cols = string_cols[2:len(string_cols)]
 	query = "SELECT " + string_cols + " FROM " + TABLE_ID
+	logging.info("The query to be made: ")
+	logging.info(query)
+	
 	return query
 
 # Note: We don't need to call run() since our application is embedded within
@@ -57,7 +59,8 @@ def make_query(cols):
 @app.route('/')
 def index():
     template = JINJA_ENVIRONMENT.get_template('templates/index.html')
-    response = get_all_data(make_query(""))
+    cols = []
+    response = get_all_data(make_query(cols))
     logging.info(response)
     return template.render(allheaders=response['columns'])
 

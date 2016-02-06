@@ -18,22 +18,12 @@
 		{% for column in allheaders %}
 		<button id="{{ column }}" class="ui basic button" onclick="updateTable('{{column}}')">{{ column }}</button>
 		{% endfor %}
-		<table class="ui striped table">
+		<table id="data" class="ui striped table">
 			<thead>
-				<tr>
-					{% for item in headers %}
-					<th>{{ item }}</th>
-					{% endfor %}
+				<tr id="cols">
 				</tr>
 			</thead>
-			<tbody>
-				{% for row in content %}
-				<tr>
-					{% for datum in row %}
-					<td>{{ datum }} </td>
-					{% endfor %}
-				</tr>
-				{% endfor %}
+			<tbody id="rows">
 			</tbody>
 		</table>
 	</div>
@@ -41,28 +31,27 @@
 	<script type="text/javascript" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
 	<script type="text/javascript">
 		function updateTable(param) {
-			console.log('Button Click being received');
-			console.log(param);
 			button = document.getElementById(param);
 			if (button.className.includes("active")) {
-				console.log('Deactivate button state');
 				button.className = "ui basic button";
 			} else {
-				console.log('Activate button state');
 				button.className = "ui basic button active";
 			}
 			cols = [];
 			buttons = document.getElementsByTagName('button');
-			for (button in buttons) {
-				console.log(buttons[button]);
-				id = buttons[button].id;
+			for(var i = 0; i < buttons.length; i++) {
+				id = buttons[i].id;
 				if(id != null) {
-					if(buttons[button].className.includes("active")) {
-						cols.push(id);
+					if(buttons[i].className.includes("active")) {
+							cols.push(id);
 					}
 				}
 			}
 
+			console.log('Columns requested from table');
+			console.log(cols);
+
+			//ajax query
 			$.ajax({
 				url: '/_update_table',
 				dataType: 'json',
@@ -71,10 +60,36 @@
 				type: 'POST',
 				success: function (res, status) {
 					console.log("successrunning");
-			 // On Success
-				},
-			});
-			}
+			 		// On Success
+			 		var cols = res["headers"];
+			 		var rows = res["content"];
+	               // get the table, columns and rows
+	               table = document.getElementById("data");
+	               headers = document.getElementById("cols");
+	               body = document.getElementById("rows");
+
+	               // delete current contents
+	               headers.innerHTML='';
+	               body.innerHTML = '';
+
+	               for (col in cols) {
+	               	cell = document.createElement("th");
+	               	cell.innerHTML = cols[col];
+	               	headers.appendChild(cell);
+	               }
+
+	               for (row in rows) {
+	               	tr = document.createElement("tr");
+	               	for (item in rows[row]) {
+	               		td = document.createElement("td");
+	               		td.innerHTML = rows[row][item];
+	               		tr.appendChild(td);
+	               	}
+	               	body.appendChild(tr);
+	               }
+	           }
+   		});
+}
 </script>
 </body>
 </html>
