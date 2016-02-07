@@ -15,11 +15,17 @@
 		</div>
 	</div>
 	<div class="ui container">
-		<h3>Describe an expectation you had about the data that did not match the actual data. What was your expectation? How did things turn out? Illustrate your point with a graph or a chart.</h3>
-		<p>***Insert Image and Inference</p>
-
 		<h3>Describe an issue with the completeness, coherence, or correctness of the data of the data. Be concrete about what type of problem you are talking about, how much data is involved and what is affected (use of charts and graphs encouraged). What concerns does this raise?</h3>
-		<p>***Insert inference****</p>
+		<p>There were quite a few issues in the dataset. Some of them were:</p>
+		<ul class="ui list">
+			<li><strong>Completeness:</strong> The data had more than required information. It had sections (as seen in the responsive table) that weren't so important to me at all. For missing data, UNHCR marked it with a '-' to indicate so.</li>
+			<li><strong>Correctness:</strong> Here is where I found the most problems. The countries where spelled in various ways. It had numbers prefixed and suffixed to it. For example, Vietnam was Viet Nam and Bolivia was 'Bolivia (Plurinational State of)' which was hard to geocode. It also had super-scripts and subscripts, I guess with the objective of being politically correct as a world organization. There were a lot of duplicates which I had to merge and add data up.</li>
+			<li><strong>Coherence:</strong> I did not check for coherence a lot. But I assume that the number of refugees originating from a country = number of refugees in asylum. There might be coherence issues, but i did not stumble on any.</li>
+			<li><strong>Accountability:</strong> Even if I have my doubts about the veracity of the data, the United Nations is the best data set we could have probably about this issue.</li>
+		</ul>
+		<h3>PyPlot</h3>
+		<p>This is a bar chart of countries with &gt;Half a million refugees originating from it.</p>
+		<img src='http://s16.postimg.org/fpw4bbsx1/explore.png'/>
 	</div>
 	<script type="text/javascript" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
 </body>

@@ -26,8 +26,9 @@ API_KEY = 'AIzaSyBeO38viomvIbJ1Ed6oKUfJFLgAilysdSg'
 # fusion tables API using the developer key
 service = build('fusiontables', 'v1', developerKey=API_KEY)
 
-TABLE_ID = '1Ohk5XVdXtFFD1NeaJGljO_FClO-b0_WQv5q5__Ov'
-
+#TABLE_ID = '1Ohk5XVdXtFFD1NeaJGljO_FClO-b0_WQv5q5__Ov'
+#TABLE_ID = '1bBVaZUHmX3oYD_P___ZtDwjiUGj8yHMfTcMX8S5A'
+TABLE_ID = '1s5xq8g7tqlMWIa06klxSuKSnzA7CYwld9Y3tdxNW'
 #Define Flask application
 app = Flask(__name__)
 
